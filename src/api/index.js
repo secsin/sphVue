@@ -10,3 +10,4 @@ export const reqCategory = () => {
 
 export const reqgetBannerList = () => mockRequests.get("/banner");
 export const reqgetFloorList = () => mockRequests.get("/floor");
+export const reqgetSearchInfo = (params) => requests({ method: "post", url: "/list", data: params });
