@@ -5,15 +5,20 @@ import store from "@/store";
 // 三级联动组件
 import TypeNav from "@/components/TypeNav";
 import Carousel from "@/components/Carousel";
+import Pagination from "@/components/Pagination";
 import "@/mock/mockServe";
 import "swiper/css/swiper.css";
 
 Vue.component(Carousel.name, Carousel);
 Vue.component(TypeNav.name, TypeNav);
+Vue.component(Pagination.name, Pagination);
 Vue.config.productionTip = false;
 
 new Vue({
   render: (h) => h(App),
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
   router,
   store,
 }).$mount("#app");

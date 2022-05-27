@@ -77,6 +77,12 @@ export default {
     //   // }
     // );
   },
+  mounted() {
+    // 全局事件总线
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
+  },
 };
 </script>
 
