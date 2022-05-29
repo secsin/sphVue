@@ -1,6 +1,6 @@
 <template>
   <div>
-    <typeNav />
+    <TypeNav />
     <div class="main">
       <div class="py-container">
         <!--bread-->
@@ -42,7 +42,7 @@
               <li class="yui3-u-1-5" v-for="(good, index) in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+                    <router-link :to="`detail/${good.id}`"><img :src="good.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>

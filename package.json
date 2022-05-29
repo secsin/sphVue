@@ -7,8 +7,12 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "browser": {
+    "console": false
+  },
   "dependencies": {
     "axios": "^0.27.2",
+    "console-browserify": "^1.2.0",
     "core-js": "^3.8.3",
     "less": "^4.1.2",
     "less-loader": "^5.0.0",

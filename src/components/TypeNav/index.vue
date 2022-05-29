@@ -73,6 +73,7 @@ export default {
     }),
   },
   methods: {
+    // 节流
     changeIndex: throttle(function (index) {
       this.currentIndex = index;
     }, 50),

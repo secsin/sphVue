@@ -11,3 +11,12 @@ export const reqCategory = () => {
 export const reqgetBannerList = () => mockRequests.get("/banner");
 export const reqgetFloorList = () => mockRequests.get("/floor");
 export const reqgetSearchInfo = (params) => requests({ method: "post", url: "/list", data: params });
+export const reqgetGoodsInfo = (skuId) => requests({ method: "get", url: `/item/${skuId}` });
+export const reqaddorUpdateShopCart = (skuId, skuNum) => requests({ method: "post", url: `/cart/addToCart/${skuId}/${skuNum}` });
+export const reqCartList = () => requests({ method: "get", url: "/cart/cartList" });
+export const reqDeleteCartById = (skuId) => requests({ method: "delete", url: `/cart/deleteCart/${skuId}` });
+export const reqUpdateCheckedById = (skuId, isChecked) => requests({ method: "get", url: `/cart/checkCart/${skuId}/${isChecked}` });
+export const reqGetCode = (phone) => requests({ method: "get", url: `/user/passport/sendCode/${phone}` });
+export const reqUserRegister = (data) => requests({ method: "post", url: "/user/passport/register", data });
+export const reqUserLogin = (data) => requests({ method: "post", url: "/user/passport/login", data });
+export const reqUserInfo = () => requests({ method: "get", url: "/user/passport/auth/getUserInfo" });
