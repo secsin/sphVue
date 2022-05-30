@@ -20,3 +20,10 @@ export const reqGetCode = (phone) => requests({ method: "get", url: `/user/passp
 export const reqUserRegister = (data) => requests({ method: "post", url: "/user/passport/register", data });
 export const reqUserLogin = (data) => requests({ method: "post", url: "/user/passport/login", data });
 export const reqUserInfo = () => requests({ method: "get", url: "/user/passport/auth/getUserInfo" });
+export const reqLogout = () => requests({ method: "get", url: "/user/passport/logout" });
+export const reqAddressInfo = () => requests({ method: "get", url: "/user/userAddress/auth/findUserAddressList" });
+export const reqOrderInfo = () => requests({ method: "get", url: "/order/auth/trade" });
+export const reqSubmitOrder = (tradeNo, data) => requests({ method: "post", url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, data });
+export const reqPayInfo = (orderNo) => requests({ method: "get", url: `/payment/weixin/createNative/${orderNo}` });
+export const reqPayStatus = (orderNo) => requests({ method: "get", url: `/payment/weixin/queryPayStatus/${orderNo}` });
+export const reqOrderList = (page, limit) => requests({ method: "get", url: `/order/auth/${page}/${limit}` });

@@ -1,7 +1,8 @@
-import { reqGetCode, reqUserRegister, reqUserLogin, reqUserInfo } from "@/api/index";
+import { reqGetCode, reqUserRegister, reqUserLogin, reqUserInfo, reqLogout } from "@/api/index";
+import { setToken, getToken, removeToken } from "@/utils/token";
 const state = {
   code: "",
-  token: "",
+  token: getToken(),
   userInfo: {},
 };
 let mutations = {
@@ -13,6 +14,11 @@ let mutations = {
   },
   GETUSERINFO(state, userInfo) {
     state.userInfo = userInfo;
+  },
+  CLEARTOKEN(state) {
+    state.token = "";
+    state.userInfo = {};
+    removeToken();
   },
 };
 let actions = {
@@ -42,18 +48,32 @@ let actions = {
     // console.log(result);
     if (result.code == 200) {
       commit("USERLOGIN", result.data.token);
+      setToken(result.data.token);
       return "ok";
     } else {
       return Promise.reject(new Error("faile"));
     }
   },
   // 获取用户信息
-  async userInfo({ commit }, data) {
+  async userInfo({ commit }) {
     let result = await reqUserInfo();
     // console.log(result);
     if (result.code == 200) {
       commit("GETUSERINFO", result.data);
       return "ok";
+    } else {
+      return Promise.reject(new Error("faile"));
+    }
+  },
+  // 退出登录
+  async logout({ commit }) {
+    let result = await reqLogout();
+    // console.log(result);
+    if (result.code == 200) {
+      commit("CLEARTOKEN");
+      return "ok";
+    } else {
+      return Promise.reject(new Error("faile"));
     }
   },
 };

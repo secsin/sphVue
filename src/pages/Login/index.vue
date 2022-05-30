@@ -21,7 +21,7 @@
               </div>
               <div class="input-text clearFix">
                 <span class="pwd"></span>
-                <input type="text" placeholder="请输入密码" v-model="password" />
+                <input type="password" placeholder="请输入密码" v-model="password" />
               </div>
               <div class="setting clearFix">
                 <label class="checkbox inline">
@@ -75,7 +75,9 @@ export default {
       try {
         const { phone, password } = this;
         phone && password && (await this.$store.dispatch("userLogin", { phone, password }));
-        this.$router.push("/home");
+        // 有query参数跳到指定页，没有home
+        let toPath = this.$route.query.redirect || "/home";
+        this.$router.push(toPath);
       } catch (error) {
         alert(error.message);
       }
