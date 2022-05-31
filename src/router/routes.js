@@ -1,8 +1,5 @@
-import Home from "@/pages/Home";
 import Search from "@/pages/Search";
-import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import Detail from "@/pages/Detail";
 import AddCartSuccess from "@/pages/AddCartSuccess";
 import ShopCart from "@/pages/ShopCart";
 import Trade from "@/pages/Trade";
@@ -15,17 +12,18 @@ import GroupOrder from "@/pages/Center/groupOrder";
 export default [
   {
     path: "/home",
-    component: Home,
+    // 路由懒加载
+    component: () => import("@/pages/Home"),
     meta: { show: true },
   },
   {
     path: "/detail/:skuid",
-    component: Detail,
+    component: () => import("@/pages/Detail"),
     meta: { show: true },
   },
   {
     path: "/login",
-    component: Login,
+    component: () => import("@/pages/Login"),
     meta: { show: false },
   },
   {
@@ -69,11 +67,25 @@ export default [
     path: "/trade",
     component: Trade,
     meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path == "/shopcart") {
+        next();
+      } else {
+        next(false);
+      }
+    },
   },
   {
     path: "/pay",
     component: Pay,
     meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path == "/trade") {
+        next();
+      } else {
+        next(false);
+      }
+    },
   },
   {
     path: "/paysuccess",

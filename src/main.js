@@ -10,6 +10,9 @@ import { Button, MessageBox } from "element-ui";
 import "@/mock/mockServe";
 import "swiper/css/swiper.css";
 import * as API from "@/api";
+import VueLazyload from "vue-lazyload";
+import cartoon from "@/assets/cartoon.jpg";
+import "@/plugins/validate";
 
 Vue.component(Carousel.name, Carousel);
 Vue.component(TypeNav.name, TypeNav);
@@ -19,6 +22,9 @@ Vue.component(Button.name, Button);
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.config.productionTip = false;
+Vue.use(VueLazyload, {
+  loading: cartoon,
+});
 
 new Vue({
   render: (h) => h(App),

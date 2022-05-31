@@ -17,11 +17,27 @@
             <form>
               <div class="input-text clearFix">
                 <span></span>
-                <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone" />
+                <input
+                  type="text"
+                  placeholder="邮箱/用户名/手机号"
+                  v-model="phone"
+                  name="phone"
+                  v-validate="{ required: true, regex: /^1\d{10}$/ }"
+                  :class="{ invalid: errors.has('phone') }"
+                />
+                <p style="color: red">{{ errors.first("phone") }}</p>
               </div>
               <div class="input-text clearFix">
                 <span class="pwd"></span>
-                <input type="password" placeholder="请输入密码" v-model="password" />
+                <input
+                  type="password"
+                  placeholder="请输入密码"
+                  v-model="password"
+                  name="password"
+                  v-validate="{ required: true, regex: /^[0-9A-Za-z]{8,20}$/ }"
+                  :class="{ invalid: errors.has('password') }"
+                />
+                <p style="color: red">{{ errors.first("password") }}</p>
               </div>
               <div class="setting clearFix">
                 <label class="checkbox inline">
@@ -72,14 +88,16 @@ export default {
   },
   methods: {
     async userLogin() {
-      try {
-        const { phone, password } = this;
-        phone && password && (await this.$store.dispatch("userLogin", { phone, password }));
-        // 有query参数跳到指定页，没有home
-        let toPath = this.$route.query.redirect || "/home";
-        this.$router.push(toPath);
-      } catch (error) {
-        alert(error.message);
+      const success = await this.$validator.validateAll();
+      if (success) {
+        try {
+          await this.$store.dispatch("userLogin", { phone: this.phone, password: this.password });
+          // 有query参数跳到指定页，没有home
+          let toPath = this.$route.query.redirect || "/home";
+          this.$router.push(toPath);
+        } catch (error) {
+          alert(error.message);
+        }
       }
     },
   },
